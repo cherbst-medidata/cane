@@ -55,4 +55,15 @@ describe Cane::StyleCheck do
     violations.length.should == 0
   end
 
+  it 'skips trailing whitespace violations if declared' do
+    file_name = make_file("# \n")
+
+    violations = check(file_name,
+      style_measure: 80,
+      no_trailing_whitespace: true
+    ).violations
+
+    violations.length.should == 0
+  end
+
 end
