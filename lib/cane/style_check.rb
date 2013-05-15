@@ -29,7 +29,8 @@ module Cane
                          default: [],
                          clobber: :no_style],
         no_style:      ['Disable style checking', cast: ->(x) { !x }],
-        no_trailing_whitespace: ['Disable trailing whitespace checking', cast: ->(x) { !x }]
+        no_trailing_whitespace: ['Disable trailing whitespace checking', cast: ->(x) { !x }],
+        no_hard_tabs: ['Disable hard tabs checking', cast: ->(x) { !x }]
       }
     end
 
@@ -56,7 +57,7 @@ module Cane
         result << "Line is >%i characters (%i)" % [measure, line.length]
       end
       result << "Line contains trailing whitespace" unless opts[:no_trailing_whitespace] || line =~ /[^\s]$/
-      result << "Line contains hard tabs"           if line =~ /\t/
+      result << "Line contains hard tabs"           unless opts[:no_hard_tabs] || line =~ /^[^\t]*$/
       result
     end
 

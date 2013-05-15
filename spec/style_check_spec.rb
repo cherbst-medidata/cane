@@ -66,4 +66,15 @@ describe Cane::StyleCheck do
     violations.length.should == 0
   end
 
+  it 'skips hard tab violations if declared' do
+    file_name = make_file("\t1\n")
+
+    violations = check(file_name,
+      style_measure: 80,
+      no_hard_tabs: true
+    ).violations
+
+    violations.length.should == 0
+  end
+
 end
